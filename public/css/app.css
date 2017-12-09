@@ -1,0 +1,26 @@
+body{
+    background-color: #7ded74;
+}
+
+.campName{
+    font-weight: bold;
+}
+
+.campRow{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#newCampHeader{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#newCampForm{
+    width: 50%;
+    margin: 20px auto;
+}
+
+#newCampButton{
+    width: 100%;
+}
