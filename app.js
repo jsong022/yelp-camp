@@ -14,14 +14,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 mongoose.connect("mongodb://localhost/yelp-camp", {useMongoClient: true});
 var campgroundSchema = new mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  description: String
 });
 var Campground = mongoose.model("Campground", campgroundSchema);
 
 /*
 //add a sample to the database
 Campground.create(
-  {name: "Salmon Creek", image: "https://farm9.staticflickr.com/8491/8296644156_c60886ce08.jpg"},
+  {name: "Salmon Creek",
+  image: "https://farm9.staticflickr.com/8491/8296644156_c60886ce08.jpg",
+  description: "This is a beautiful campsite by a river. Perfect for a family summer vacation."},
   function(err, obj){
     if (err){
       console.log("Error while adding a new campground");
@@ -45,7 +48,7 @@ app.get("/", function(req, res){
   res.render("home");
 });
 
-//all campgrounds
+//INDEX - list of all campgrounds
 app.get("/campgrounds", function(req, res){
   //get all campgrounds from the databse
   Campground.find({}, function(err, camp){
@@ -53,19 +56,20 @@ app.get("/campgrounds", function(req, res){
       console.log("Error while looking for campgrounds");
       console.log(err);
     } else{
-      res.render("campgrounds", {campgrounds: camp});
+      res.render("index", {campgrounds: camp});
     }
   });
   //res.render("campgrounds", {campgrounds: campgrounds});
 });
 
-//new campground post
+//CREATE - POST new campground to add to database
 app.post("/campgrounds", function(req, res){
   //get data from input form
   var name = req.body.campName;
   var img = req.body.imageURL;
+  var desc = req.body.campDesc;
   //create new campground object based on the input
-  var newCamp = {name: name, image: img};
+  var newCamp = {name: name, image: img, description: desc};
   //add it to the database
   Campground.create(newCamp, function(err, camp){
     if (err){
@@ -80,9 +84,22 @@ app.post("/campgrounds", function(req, res){
   });
 });
 
-//new campground input form
+//NEW - new campground input form
 app.get("/campgrounds/new", function(req, res){
   res.render("new");
+});
+
+//SHOW - infor about a single campground
+app.get("/campgrounds/:id", function(req, res){
+  //find the camp with the given ID
+  Campground.findById(req.params.id, function(err, camp){
+    if (err){ //error handling
+      console.log("Error while looking for the campground by ID");
+      console.log(err);
+    } else { //render the show EJS template with info about that campground
+      res.render("show", {campground: camp});
+    }
+  });
 });
 
 //start listening on env.PORT and env.IP (external environmental variables to protect keys and such)
