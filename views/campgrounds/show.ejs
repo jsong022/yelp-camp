@@ -1,8 +1,9 @@
-<% include partials/header %>
+<% include ../partials/header %>
 <div class="caption"><h1 class = "campName"><%=campground.name%></h1></div>
 <img class = "campImg" src="<%=campground.image%>"/>
 <p><%= campground.description%></p>
+<p><a href="/campgrounds/<%=campground._id%>/comments/new" class="btn btn-sm btn-primary">Add Comment</a></p>
 <% campground.comments.forEach(function(comment){ %>
     <p><b><%= comment.author %></b> - <%= comment.text %></p>
 <% }) %>
-<% include partials/footer %>
+<% include ../partials/footer %>

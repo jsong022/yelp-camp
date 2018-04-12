@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+<div class="container">
+  <div class="row">
+    <h1 class="col-sm-12" id="newCampHeader">Create a New Campground</h1>
+    <!-- Form will be sent in a POST HTTP request to /campgrounds -->
+    <form action="/campgrounds" method="POST" id="newCampForm">
+      <div class="form-group">
+        <input class="form-control" type="text" name="campName" placeholder="Example Camp Name"/>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="imageURL" placeholder="Example Image URL"/>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="campDesc" placeholder="Simple Description"/>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-lg btn-success" id="newCampButton">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<% include ../partials/footer %>
