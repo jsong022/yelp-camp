@@ -10,9 +10,9 @@ var express     = require("express"),
 
 //set up app variable
 var app = express();
-app.set("view engine", "ejs");
-app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
 
 //set up mongoose stuff
 mongoose.connect("mongodb://localhost/yelp-camp");
@@ -77,15 +77,14 @@ app.get("/campgrounds/:id", function(req, res){
       console.log("Error while looking for the campground by ID");
       console.log(err);
     } else { //render the show EJS template with info about that campground
-      console.log("Showing Campground");
-      console.log(camp);
+      console.log("Showing Campground " + req.params.id);
       res.render("campgrounds/show", {campground: camp});
     }
   });
 });
 
 /*=====================
-CAMPGROUNDS ROUTES
+COMMENTS ROUTES
 =======================*/
 
 //NEW - new comment input form
