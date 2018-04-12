@@ -1,8 +1,0 @@
-<% include partials/header %>
-<div class="caption"><h1 class = "campName"><%=campground.name%></h1></div>
-<img class = "campImg" src="<%=campground.image%>"/>
-<p><%= campground.description%></p>
-<% campground.comments.forEach(function(comment){ %>
-    <p><b><%= comment.author %></b> - <%= comment.text %></p>
-<% }) %>
-<% include partials/footer %>
